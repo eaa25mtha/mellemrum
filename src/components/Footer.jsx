@@ -1,0 +1,34 @@
+import { NavLink } from "react-router";
+
+export default function Footer() {
+  return (
+    <>
+      <footer className="site-footer">
+        <div className="footer-top">
+          <div className="footer-intro">
+            <p className="footer-brand">
+              mellemrum<span>.</span>
+            </p>
+            <p>Udvalgte kulturoplevelser og nye perspektiver på Aarhus.</p>
+          </div>
+          <nav className="footer-links" aria-label="Footer">
+            <div className="footer-link-group">
+              <p className="footer-heading">Udforsk</p>
+              <NavLink to="/">Events</NavLink>
+              <NavLink to="/om">Om Mellemrum</NavLink>
+            </div>
+            <div className="footer-link-group">
+              <p className="footer-heading">For arrangører</p>
+              <NavLink to="/tilmeldinger">Se tilmeldinger</NavLink>
+              <a href="mailto:hej@mellemrum.dk">Kontakt os</a>
+            </div>
+          </nav>
+        </div>
+        <div className="footer-bottom">
+          <p className="footer-meta">© 2025 Mellemrum</p>
+          <p>Aarhus, Danmark</p>
+        </div>
+      </footer>
+    </>
+  );
+}
