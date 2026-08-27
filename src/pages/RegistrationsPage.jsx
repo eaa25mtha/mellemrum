@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
-};
+import { supabaseFetch } from "../services/supabaseService.js";
 
 export default function RegistrationsPage() {
   const [registrations, setRegistrations] = useState([]);
@@ -12,11 +7,8 @@ export default function RegistrationsPage() {
 
   useEffect(() => {
     async function getRegistrations() {
-      const response = await fetch(
-        `${SUPABASE_URL}/registrations?order=createdAt.desc`,
-        { headers },
-      );
-      const data = await response.json();
+      const data = await supabaseFetch("/registrations?order=createdAt.desc"); //sorteret efter oprettelsesdato
+
       setRegistrations(data);
       setRegistrationCount(data.length);
     }

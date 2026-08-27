@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
-};
+import { supabaseFetch } from "../services/supabaseService.js";
 
 export default function HomePage() {
   const [events, setEvents] = useState([]);
@@ -14,10 +9,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function getEvents() {
-      const response = await fetch(`${SUPABASE_URL}/events?order=date.asc`, {
-        headers,
-      });
-      const data = await response.json();
+      const data = await supabaseFetch("/events?order=date.asc"); //sorteret efter dato
       setEvents(data);
     }
 
