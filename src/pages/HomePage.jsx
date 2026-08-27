@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json",
-};
+import { supabaseFetch } from "../services/supabaseService.js";
+import EventCard from "../components/EventCard.jsx";
 
 export default function HomePage() {
   const [events, setEvents] = useState([]);
@@ -14,10 +9,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function getEvents() {
-      const response = await fetch(`${SUPABASE_URL}/events?order=date.asc`, {
-        headers,
-      });
-      const data = await response.json();
+      const data = await supabaseFetch("/events?order=date.asc"); //sorteret efter dato
       setEvents(data);
     }
 
@@ -37,17 +29,6 @@ export default function HomePage() {
 
     return matchesSearch && matchesCategory;
   });
-
-  function formatEventDate(eventDate) {
-    const date = new Date(eventDate);
-    const formattedDate = date.toLocaleDateString("da-DK", {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-    });
-
-    return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-  }
 
   return (
     <>
@@ -97,21 +78,7 @@ export default function HomePage() {
 
         <section className="event-grid">
           {filteredEvents.map((event) => (
-            <article className="event-card" key={event.id}>
-              <img src={event.image} alt="" />
-              <div className="event-card-content">
-                <p className="event-category">{event.category}</p>
-                <h3>{event.title}</h3>
-                <p>{event.summary}</p>
-                <div className="event-meta">
-                  <span>{formatEventDate(event.date)}</span>
-                  <span>{event.venueName}</span>
-                </div>
-                <Link className="card-link" to={`/events/${event.id}`}>
-                  Læs mere
-                </Link>
-              </div>
-            </article>
+            <EventCard key={event.id} event={event} /> /* EventCard komponent */
           ))}
         </section>
       </main>
