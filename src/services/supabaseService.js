@@ -5,14 +5,17 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-export async function supabaseFetch(endpoint) {
+export async function supabaseFetch(endpoint, options = {}) {
   const response = await fetch(`${SUPABASE_URL}${endpoint}`, {
     headers,
+    ...options,
   });
 
   if (!response.ok) {
     throw new Error(`Request failed: ${response.status}`);
   }
 
-  return response.json();
+  const text = await response.text();
+
+  return text ? JSON.parse(text) : null;
 }

@@ -6,11 +6,16 @@ export default function HomePage() {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Alle");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function getEvents() {
-      const data = await supabaseFetch("/events?order=date.asc"); //sorteret efter dato
-      setEvents(data);
+      try {
+        const data = await supabaseFetch("/events?order=date.asc");
+        setEvents(data);
+      } catch {
+        setError("Vi kunne ikke hente events. Prøv igen senere."); //hvis events slet ikke loades
+      }
     }
 
     getEvents();
@@ -24,6 +29,7 @@ export default function HomePage() {
   const filteredEvents = events.filter((event) => {
     const searchText =
       `${event.title} ${event.summary} ${event.venueName}`.toLowerCase();
+
     const matchesSearch = searchText.includes(search.toLowerCase());
     const matchesCategory = category === "Alle" || event.category === category;
 
@@ -63,6 +69,7 @@ export default function HomePage() {
               placeholder="Søg efter titel eller sted"
             />
           </label>
+
           <label>
             Kategori
             <select
@@ -76,11 +83,22 @@ export default function HomePage() {
           </label>
         </section>
 
-        <section className="event-grid">
-          {filteredEvents.map((event) => (
-            <EventCard key={event.id} event={event} /> /* EventCard komponent */
-          ))}
-        </section>
+        {error && <p role="alert">{error}</p>}
+
+        {!error && filteredEvents.length === 0 && (
+          <p role="status" aria-live="polite">
+            Vi fandt ikke nogen events, der matcher din søgning.{" "}
+            {/* hvis der skrives et forkert søgeord */}
+          </p>
+        )}
+
+        {!error && filteredEvents.length > 0 && (
+          <section className="event-grid">
+            {filteredEvents.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </section>
+        )}
       </main>
     </>
   );
