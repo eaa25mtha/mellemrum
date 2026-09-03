@@ -52,9 +52,7 @@ export default function EventPage() {
           name,
           email,
           status: "Tilmeldt",
-          eventTitle: event.title,
-          eventDate: event.date,
-          eventLocation: event.venueName,
+          eventId: event.id,
         }),
       });
 
