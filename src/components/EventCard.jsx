@@ -17,7 +17,6 @@ export default function EventCard({ event }) {
   return (
     <article className="event-card">
       <img src={imageUrl} alt="" loading="lazy" width="800" height="600" />
-
       <div className="event-card-content">
         <p className="event-category">{event.category}</p>
         <h3>{event.title}</h3>

@@ -99,11 +99,10 @@ export default function EventPage() {
 
       <EventDetails event={event} />
 
-      <section className="signup-panel">
+      <section className="signup-panel" aria-labelledby="signup-heading">
         <div>
           <p className="eyebrow dark">Tilmelding</p>
-          <h2>Reserver din plads</h2>
-
+          <h2 id="signup-heading">Reserver din plads</h2>
           <p>Udfyld formularen, så sender vi din tilmelding til arrangøren.</p>
         </div>
 
@@ -111,8 +110,10 @@ export default function EventPage() {
           <label>
             Navn
             <input
+              type="text"
               value={name}
               onChange={(event) => setName(event.target.value)}
+              autoComplete="name"
               required
               disabled={isSubmitting}
             />
@@ -124,6 +125,7 @@ export default function EventPage() {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              autoComplete="email"
               placeholder="dig@example.com"
               required
               disabled={isSubmitting}
@@ -131,7 +133,7 @@ export default function EventPage() {
           </label>
 
           <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Tilmelder..." : "Tilmeld mig"}
+            {isSubmitting ? "Tilmelding..." : "Tilmeld mig"}
           </button>
 
           {success && (

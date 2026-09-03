@@ -60,62 +60,66 @@ export default function HomePage() {
         </a>
       </header>
 
-      <main id="events">
-        <section className="section-heading">
-          <div>
-            <p className="eyebrow dark">Det sker</p>
-            <h2>Kommende events</h2>
+      <main>
+        <section id="events" aria-labelledby="events-heading">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow dark">Det sker</p>
+              <h2 id="events-heading">Kommende events</h2>
+            </div>
+
+            <p>
+              Kuraterede oplevelser i byen – fra små scener til store idéer.
+            </p>
           </div>
 
-          <p>Kuraterede oplevelser i byen – fra små scener til store idéer.</p>
-        </section>
+          <div className="filters">
+            <label>
+              Søg
+              <input
+                type="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Søg efter titel eller sted"
+              />
+            </label>
 
-        <section className="filters">
-          <label>
-            Søg
-            <input
-              type="search"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-              placeholder="Søg efter titel eller sted"
-            />
-          </label>
+            <label>
+              Kategori
+              <select
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+              >
+                {categories.map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+            </label>
+          </div>
 
-          <label>
-            Kategori
-            <select
-              value={category}
-              onChange={(event) => setCategory(event.target.value)}
-            >
-              {categories.map((item) => (
-                <option key={item}>{item}</option>
+          {isLoading && (
+            <p role="status" aria-live="polite">
+              Henter events...
+            </p>
+          )}
+
+          {!isLoading && error && <p role="alert">{error}</p>}
+
+          {!isLoading && !error && filteredEvents.length === 0 && (
+            <div role="status" aria-live="polite">
+              <h3>Ingen events fundet</h3>
+              <p>Prøv et andet søgeord eller vælg en anden kategori.</p>
+            </div>
+          )}
+
+          {!isLoading && !error && filteredEvents.length > 0 && (
+            <div className="event-grid">
+              {filteredEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
               ))}
-            </select>
-          </label>
+            </div>
+          )}
         </section>
-
-        {isLoading && (
-          <p role="status" aria-live="polite">
-            Henter events...
-          </p>
-        )}
-
-        {!isLoading && error && <p role="alert">{error}</p>}
-
-        {!isLoading && !error && filteredEvents.length === 0 && (
-          <div role="status" aria-live="polite">
-            <h3>Ingen events fundet</h3>
-            <p>Prøv et andet søgeord eller vælg en anden kategori.</p>
-          </div>
-        )}
-
-        {!isLoading && !error && filteredEvents.length > 0 && (
-          <section className="event-grid">
-            {filteredEvents.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </section>
-        )}
       </main>
     </>
   );
