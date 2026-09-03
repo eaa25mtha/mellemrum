@@ -34,6 +34,84 @@ main {
 }
 
 /* =========================
+   Typography
+========================= */
+
+.eyebrow {
+  color: var(--lime);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+
+.eyebrow.dark {
+  color: var(--green);
+}
+
+.lead {
+  color: var(--ink) !important;
+  font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
+}
+
+.page-header,
+.admin-header {
+  background: var(--green);
+  color: white;
+  padding: 5rem var(--content-edge);
+}
+
+.page-header h1 {
+  font-size: clamp(3rem, 6vw, 6rem);
+}
+
+/* =========================
+   Forms & focus states
+========================= */
+
+input,
+select {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  min-height: 48px;
+  padding: 0.75rem 0.9rem;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+/*
+  Tydelig fokusmarkering for keyboard-navigation.
+  :focus-visible viser fokusindikatoren, når browseren
+  vurderer, at brugeren har behov for den.
+*/
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+input:focus-visible,
+select:focus-visible {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.12);
+}
+
+/* Lys fokusmarkering på mørke baggrunde */
+
+.hero a:focus-visible,
+.site-nav a:focus-visible,
+.site-footer a:focus-visible {
+  outline-color: var(--lime);
+}
+
+/* =========================
    Navigation
 ========================= */
 
@@ -55,7 +133,6 @@ main {
 .brand {
   font-size: 1.6rem;
   font-weight: 800;
-  letter-spacing: -0.04em;
   text-decoration: none;
 }
 
@@ -86,64 +163,6 @@ main {
 }
 
 /* =========================
-   Shared typography / UI
-========================= */
-
-.eyebrow {
-  color: var(--lime);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  margin: 0 0 1rem;
-  text-transform: uppercase;
-}
-
-.eyebrow.dark {
-  color: var(--green);
-}
-
-.lead {
-  color: var(--ink) !important;
-  font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
-}
-
-.message {
-  background: var(--cream);
-  padding: 1rem;
-}
-
-.page-header,
-.admin-header {
-  background: var(--green);
-  color: white;
-  padding: 5rem var(--content-edge);
-}
-
-.page-header h1 {
-  font-size: clamp(3rem, 6vw, 6rem);
-}
-
-input,
-select {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  min-height: 48px;
-  padding: 0.75rem 0.9rem;
-  transition:
-    border-color 160ms ease,
-    box-shadow 160ms ease;
-}
-
-input:focus,
-select:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.12);
-  outline: none;
-}
-
-/* =========================
    Home page
 ========================= */
 
@@ -157,6 +176,7 @@ select:focus {
     ),
     url("https://images.unsplash.com/photo-1595146463222-19603449c6af?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
       center / cover;
+
   color: white;
   min-height: 64vh;
   padding: clamp(5rem, 10vw, 9rem) var(--content-edge) 5rem;
@@ -165,7 +185,6 @@ select:focus {
 .hero h1,
 .page-header h1 {
   font-size: clamp(3.2rem, 8vw, 7.5rem);
-  letter-spacing: -0.075em;
   line-height: 0.9;
   margin: 0;
   max-width: 12ch;
@@ -205,7 +224,6 @@ select:focus {
 .section-heading h2,
 .signup-panel h2 {
   font-size: clamp(2.2rem, 4vw, 4rem);
-  letter-spacing: -0.055em;
   line-height: 1;
   margin: 0;
 }
@@ -252,8 +270,6 @@ select:focus {
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: 0 8px 26px rgba(23, 32, 29, 0.05);
-  display: flex;
-  flex-direction: column;
   min-height: 100%;
   overflow: hidden;
   transition:
@@ -264,6 +280,19 @@ select:focus {
 .event-card:hover {
   box-shadow: var(--shadow);
   transform: translateY(-4px);
+}
+
+.event-card-link {
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+}
+
+.event-card-link:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
 }
 
 .event-card img {
@@ -291,7 +320,6 @@ select:focus {
 
 .event-card h3 {
   font-size: 1.65rem;
-  letter-spacing: -0.035em;
   line-height: 1.05;
   margin: 0;
 }
@@ -310,7 +338,7 @@ select:focus {
   padding-top: 1rem;
 }
 
-.card-link {
+.card-link-text {
   align-self: flex-start;
   background: var(--green);
   border-radius: 999px;
@@ -319,13 +347,13 @@ select:focus {
   font-weight: 750;
   margin-top: 1rem;
   padding: 0.7rem 1rem;
-  text-decoration: none;
   transition:
     background 160ms ease,
     color 160ms ease;
 }
 
-.card-link:hover {
+.event-card:hover .card-link-text,
+.event-card-link:focus-visible .card-link-text {
   background: var(--lime);
   color: var(--green);
 }
@@ -345,6 +373,7 @@ select:focus {
     ),
     url("https://images.unsplash.com/photo-1553376482-e96b68bd1e11?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0")
       center / cover;
+
   display: flex;
   min-height: 68vh;
 }
@@ -370,14 +399,12 @@ select:focus {
 
 .about-page h2 {
   font-size: clamp(2.6rem, 5vw, 5rem);
-  letter-spacing: -0.06em;
   line-height: 0.95;
   margin: 0;
 }
 
 .about-page h3 {
   font-size: clamp(1.8rem, 3vw, 3rem);
-  letter-spacing: -0.045em;
   line-height: 1;
   margin: 0;
 }
@@ -515,7 +542,6 @@ select:focus {
 .about-flow-list strong {
   display: block;
   font-size: clamp(1.4rem, 2.5vw, 2rem);
-  letter-spacing: -0.035em;
   line-height: 1.1;
 }
 
@@ -571,11 +597,14 @@ select:focus {
 }
 
 .about-cta {
-  background: var(--green);
+  background: var(--lime);
   border-radius: 999px;
-  color: white;
-  padding: 0.85rem 1.15rem;
+  color: var(--green);
+  display: inline-block;
+  font-weight: 700;
+  padding: 0.75rem 1.1rem;
   text-decoration: none;
+  transition: transform 160ms ease;
 }
 
 /* =========================
@@ -614,7 +643,6 @@ select:focus {
 
 .event-detail h1 {
   font-size: clamp(3rem, 5vw, 5.5rem);
-  letter-spacing: -0.065em;
   line-height: 0.95;
   margin: 0 0 1.5rem;
 }
@@ -626,9 +654,32 @@ select:focus {
   padding: 0.5rem 0;
 }
 
-.detail-list p {
+.detail-list > div {
   display: grid;
   grid-template-columns: 5rem 1fr;
+  padding: 0.5rem 0;
+}
+
+.detail-list dt {
+  font-weight: 700;
+}
+
+.detail-list dd {
+  margin: 0;
+}
+
+.detail-list address {
+  display: grid;
+  font-style: normal;
+}
+
+.detail-list address span {
+  display: block;
+}
+
+.detail-list a {
+  display: inline-block;
+  margin-top: 0.25rem;
 }
 
 /* =========================
@@ -648,14 +699,6 @@ select:focus {
 .signup-panel form {
   display: grid;
   gap: 0.65rem;
-}
-
-.signup-panel form > span {
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  margin-top: 0.3rem;
-  text-transform: uppercase;
 }
 
 .signup-panel button {
@@ -686,7 +729,6 @@ select:focus {
 
 .admin-header h1 {
   font-size: clamp(3rem, 7vw, 6.5rem);
-  letter-spacing: -0.065em;
   line-height: 0.95;
   margin: 0;
 }
@@ -790,7 +832,6 @@ select:focus {
   color: white;
   font-size: clamp(2rem, 4vw, 3.6rem);
   font-weight: 850;
-  letter-spacing: -0.06em;
   line-height: 1;
 }
 
