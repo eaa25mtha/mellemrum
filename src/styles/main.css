@@ -270,8 +270,6 @@ select:focus-visible {
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: 0 8px 26px rgba(23, 32, 29, 0.05);
-  display: flex;
-  flex-direction: column;
   min-height: 100%;
   overflow: hidden;
   transition:
@@ -282,6 +280,19 @@ select:focus-visible {
 .event-card:hover {
   box-shadow: var(--shadow);
   transform: translateY(-4px);
+}
+
+.event-card-link {
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+}
+
+.event-card-link:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
 }
 
 .event-card img {
@@ -327,7 +338,7 @@ select:focus-visible {
   padding-top: 1rem;
 }
 
-.card-link {
+.card-link-text {
   align-self: flex-start;
   background: var(--green);
   border-radius: 999px;
@@ -336,13 +347,13 @@ select:focus-visible {
   font-weight: 750;
   margin-top: 1rem;
   padding: 0.7rem 1rem;
-  text-decoration: none;
   transition:
     background 160ms ease,
     color 160ms ease;
 }
 
-.card-link:hover {
+.event-card:hover .card-link-text,
+.event-card-link:focus-visible .card-link-text {
   background: var(--lime);
   color: var(--green);
 }
@@ -586,11 +597,14 @@ select:focus-visible {
 }
 
 .about-cta {
-  background: var(--green);
+  background: var(--lime);
   border-radius: 999px;
-  color: white;
-  padding: 0.85rem 1.15rem;
+  color: var(--green);
+  display: inline-block;
+  font-weight: 700;
+  padding: 0.75rem 1.1rem;
   text-decoration: none;
+  transition: transform 160ms ease;
 }
 
 /* =========================

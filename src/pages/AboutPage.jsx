@@ -105,7 +105,7 @@ export default function AboutPage() {
               — fra små scener til store tanker.
             </p>
             <Link className="about-cta" to="/">
-              Se kommende events →
+              Se kommende events
             </Link>
           </div>
         </section>
