@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { supabaseFetch } from "../services/supabaseService.js";
+import { supabase } from "../services/supabaseClient.js";
 import EventDetails from "../components/EventDetails.jsx";
 
 export default function EventPage() {
@@ -46,6 +47,20 @@ export default function EventPage() {
     setIsSubmitting(true);
 
     try {
+      const {
+        data: { user },
+        error: authError,
+      } = await supabase.auth.getUser();
+
+      if (authError) {
+        throw authError;
+      }
+
+      if (!user) {
+        setError("Du skal være logget ind for at tilmelde dig.");
+        return;
+      }
+
       await supabaseFetch("/registrations", {
         method: "POST",
         body: JSON.stringify({
@@ -53,6 +68,7 @@ export default function EventPage() {
           email,
           status: "Tilmeldt",
           eventId: event.id,
+          userId: user.id,
         }),
       });
 

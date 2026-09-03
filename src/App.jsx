@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import EventPage from "./pages/EventPage";
 import LoginPage from "./pages/LoginPage";
+import MyRegistrationsPage from "./pages/MyRegistrationsPage";
 import RegistrationsPage from "./pages/RegistrationsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/events/:eventId" element={<EventPage />} />
         <Route path="/om" element={<AboutPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/mine-tilmeldinger" element={<MyRegistrationsPage />} />
         <Route path="/tilmeldinger" element={<RegistrationsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
