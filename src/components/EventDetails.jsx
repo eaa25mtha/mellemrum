@@ -1,9 +1,12 @@
 export default function EventDetails({ event }) {
   const date = new Date(event.date);
 
+  const imageUrl = event.image.replace(/w=\d+/, "w=1600");
+
   return (
     <section className="event-detail">
-      <img src={event.image} alt="" />
+      <img src={imageUrl} alt="" width="1600" height="1200" />
+
       <div className="event-detail-content">
         <p className="event-category">{event.category}</p>
         <h1>{event.title}</h1>
@@ -22,6 +25,7 @@ export default function EventDetails({ event }) {
               minute: "2-digit",
             })}
           </p>
+
           <p>
             <strong>Sted</strong>
             <span>
