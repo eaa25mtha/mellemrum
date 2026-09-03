@@ -12,7 +12,9 @@ export default function RegistrationsPage() {
       setError(null);
 
       try {
-        const data = await supabaseFetch("/registrations?order=createdAt.desc");
+        const data = await supabaseFetch(
+          "/registrations?select=*,event:events(*)&order=createdAt.desc", //relationen i databasen
+        );
 
         setRegistrations(data);
       } catch (error) {
@@ -64,6 +66,7 @@ export default function RegistrationsPage() {
                   <th scope="col">Navn</th>
                   <th scope="col">Event</th>
                   <th scope="col">Dato</th>
+                  <th scope="col">Sted</th>
                   <th scope="col">Status</th>
                 </tr>
               </thead>
@@ -76,15 +79,15 @@ export default function RegistrationsPage() {
                       <br />
                       <small>{registration.email}</small>
                     </td>
-
-                    <td>{registration.eventTitle}</td>
-
+                    <td>{registration.event?.title ?? "Event mangler"}</td>
                     <td>
-                      {new Date(registration.eventDate).toLocaleDateString(
-                        "da-DK",
-                      )}
+                      {registration.event?.date
+                        ? new Date(registration.event.date).toLocaleDateString(
+                            "da-DK",
+                          )
+                        : "—"}
                     </td>
-
+                    <td>{registration.event?.venueName ?? "—"}</td>
                     <td>
                       <span className="status">{registration.status}</span>
                     </td>
