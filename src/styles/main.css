@@ -1,3 +1,7 @@
+/* =========================
+   Base / Global
+========================= */
+
 * {
   box-sizing: border-box;
 }
@@ -22,6 +26,16 @@ input,
 select {
   font: inherit;
 }
+
+main {
+  margin: 0 auto;
+  max-width: calc(var(--content-width) + 2 * var(--page-gutter));
+  padding: clamp(3rem, 6vw, 6rem) var(--page-gutter);
+}
+
+/* =========================
+   Navigation
+========================= */
 
 .site-nav {
   align-items: center;
@@ -71,6 +85,68 @@ select {
   color: white;
 }
 
+/* =========================
+   Shared typography / UI
+========================= */
+
+.eyebrow {
+  color: var(--lime);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+
+.eyebrow.dark {
+  color: var(--green);
+}
+
+.lead {
+  color: var(--ink) !important;
+  font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
+}
+
+.message {
+  background: var(--cream);
+  padding: 1rem;
+}
+
+.page-header,
+.admin-header {
+  background: var(--green);
+  color: white;
+  padding: 5rem var(--content-edge);
+}
+
+.page-header h1 {
+  font-size: clamp(3rem, 6vw, 6rem);
+}
+
+input,
+select {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  min-height: 48px;
+  padding: 0.75rem 0.9rem;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.12);
+  outline: none;
+}
+
+/* =========================
+   Home page
+========================= */
+
 .hero {
   background:
     linear-gradient(
@@ -84,19 +160,6 @@ select {
   color: white;
   min-height: 64vh;
   padding: clamp(5rem, 10vw, 9rem) var(--content-edge) 5rem;
-}
-
-.eyebrow {
-  color: var(--lime);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  margin: 0 0 1rem;
-  text-transform: uppercase;
-}
-
-.eyebrow.dark {
-  color: var(--green);
 }
 
 .hero h1,
@@ -129,12 +192,6 @@ select {
 
 .hero-link:hover {
   transform: translateY(-2px);
-}
-
-main {
-  margin: 0 auto;
-  max-width: calc(var(--content-width) + 2 * var(--page-gutter));
-  padding: clamp(3rem, 6vw, 6rem) var(--page-gutter);
 }
 
 .section-heading {
@@ -180,25 +237,9 @@ main {
   text-transform: uppercase;
 }
 
-input,
-select {
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  color: var(--ink);
-  min-height: 48px;
-  padding: 0.75rem 0.9rem;
-  transition:
-    border-color 160ms ease,
-    box-shadow 160ms ease;
-}
-
-input:focus,
-select:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.12);
-  outline: none;
-}
+/* =========================
+   Event cards
+========================= */
 
 .event-grid {
   display: grid;
@@ -289,19 +330,12 @@ select:focus {
   color: var(--green);
 }
 
-.message {
-  background: var(--cream);
-  padding: 1rem;
-}
-
-.page-header,
-.admin-header {
-  background: var(--green);
-  color: white;
-  padding: 5rem var(--content-edge);
-}
+/* =========================
+   About page
+========================= */
 
 .about-header {
+  align-items: flex-end;
   background:
     linear-gradient(
       90deg,
@@ -311,13 +345,8 @@ select:focus {
     ),
     url("https://images.unsplash.com/photo-1553376482-e96b68bd1e11?q=80&w=2400&auto=format&fit=crop&ixlib=rb-4.1.0")
       center / cover;
-  min-height: 68vh;
   display: flex;
-  align-items: flex-end;
-}
-
-.page-header h1 {
-  font-size: clamp(3rem, 6vw, 6rem);
+  min-height: 68vh;
 }
 
 .about-header-content {
@@ -330,11 +359,6 @@ select:focus {
   line-height: 1.5;
   margin: 1.75rem 0 0;
   max-width: 34rem;
-}
-
-.lead {
-  color: var(--ink) !important;
-  font-size: clamp(1.25rem, 2vw, 1.7rem) !important;
 }
 
 .about-page {
@@ -510,8 +534,8 @@ select:focus {
 }
 
 .about-city figure {
-  min-height: 620px;
   margin: 0;
+  min-height: 620px;
   position: relative;
 }
 
@@ -553,6 +577,10 @@ select:focus {
   padding: 0.85rem 1.15rem;
   text-decoration: none;
 }
+
+/* =========================
+   Event detail page
+========================= */
 
 .event-page {
   max-width: 1280px;
@@ -603,6 +631,10 @@ select:focus {
   grid-template-columns: 5rem 1fr;
 }
 
+/* =========================
+   Signup form
+========================= */
+
 .signup-panel {
   background: var(--lime);
   border-radius: 18px;
@@ -648,6 +680,10 @@ select:focus {
   padding: 0.8rem;
 }
 
+/* =========================
+   Registrations page
+========================= */
+
 .admin-header h1 {
   font-size: clamp(3rem, 7vw, 6.5rem);
   letter-spacing: -0.065em;
@@ -660,38 +696,37 @@ select:focus {
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: 0 8px 26px rgba(23, 32, 29, 0.05);
-  overflow: hidden;
+  overflow-x: auto;
 }
 
-.registration-row {
-  align-items: center;
+.registration-list table {
+  border-collapse: collapse;
+  min-width: 680px;
+  width: 100%;
+}
+
+.registration-list th,
+.registration-list td {
   border-bottom: 1px solid var(--line);
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 1.2fr 1.5fr 0.7fr 0.5fr;
   padding: 1rem 1.2rem;
+  text-align: left;
+  vertical-align: middle;
 }
 
-.registration-row:last-child {
-  border-bottom: 0;
-}
-
-.registration-row strong,
-.registration-row small {
-  display: block;
-}
-
-.registration-row small {
-  color: #65706c;
-  margin-top: 0.2rem;
-}
-
-.registration-labels {
+.registration-list th {
   background: var(--cream);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.registration-list tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.registration-list small {
+  color: #65706c;
 }
 
 .status {
@@ -703,6 +738,10 @@ select:focus {
   padding: 0.35rem 0.6rem;
   text-align: center;
 }
+
+/* =========================
+   Not found page
+========================= */
 
 .not-found-title {
   font-size: 5rem;
@@ -720,6 +759,10 @@ select:focus {
   padding: 0.75rem 1rem;
   text-decoration: none;
 }
+
+/* =========================
+   Footer
+========================= */
 
 .site-footer {
   background: #102f28;
@@ -800,29 +843,9 @@ select:focus {
   white-space: nowrap;
 }
 
-@media (max-width: 900px) {
-  .event-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .event-detail,
-  .signup-panel {
-    grid-template-columns: 1fr;
-  }
-
-  .event-detail > img {
-    min-height: 380px;
-  }
-
-  .about-intro,
-  .about-city {
-    grid-template-columns: 1fr;
-  }
-
-  .about-city figure {
-    min-height: 480px;
-  }
-}
+/* =========================
+   Responsive - mobile
+========================= */
 
 @media (max-width: 620px) {
   .site-nav,
@@ -839,9 +862,17 @@ select:focus {
 
   .event-grid,
   .filters,
+  .event-detail,
+  .signup-panel,
+  .about-intro,
+  .about-city,
   .about-audience-split,
   .about-flow-list {
     grid-template-columns: 1fr;
+  }
+
+  .event-detail > img {
+    min-height: 380px;
   }
 
   .about-header {
@@ -872,14 +903,6 @@ select:focus {
 
   .about-city figure {
     min-height: 400px;
-  }
-
-  .registration-row {
-    grid-template-columns: 1fr;
-  }
-
-  .registration-labels {
-    display: none;
   }
 
   .site-footer {
