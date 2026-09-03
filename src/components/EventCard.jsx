@@ -12,9 +12,12 @@ export default function EventCard({ event }) {
   const formattedDateCapitalized =
     formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
 
+  const imageUrl = event.image.replace(/w=\d+/, "w=800");
+
   return (
     <article className="event-card">
-      <img src={event.image} alt="" />
+      <img src={imageUrl} alt="" loading="lazy" width="800" height="600" />
+
       <div className="event-card-content">
         <p className="event-category">{event.category}</p>
         <h3>{event.title}</h3>
@@ -23,6 +26,7 @@ export default function EventCard({ event }) {
           <span>{formattedDateCapitalized}</span>
           <span>{event.venueName}</span>
         </div>
+
         <Link className="card-link" to={`/events/${event.id}`}>
           Læs mere
         </Link>
