@@ -6,18 +6,32 @@ import EventDetails from "../components/EventDetails.jsx";
 export default function EventPage() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function getEvent() {
+      setIsLoading(true);
+      setError(null);
+
       try {
         const data = await supabaseFetch(`/events?id=eq.${eventId}`);
+
+        if (!data || data.length === 0) {
+          setError("Vi kunne ikke finde det event, du leder efter.");
+          return;
+        }
+
         setEvent(data[0]);
-      } catch {
+      } catch (error) {
+        console.error("Failed to fetch event:", error);
         setError("Vi kunne ikke hente eventet. Prøv igen senere.");
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -29,6 +43,7 @@ export default function EventPage() {
 
     setSuccess(null);
     setError(null);
+    setIsSubmitting(true);
 
     try {
       await supabaseFetch("/registrations", {
@@ -49,11 +64,31 @@ export default function EventPage() {
     } catch (error) {
       console.error("Registration failed:", error);
       setError("Tilmeldingen kunne ikke gennemføres. Prøv igen.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
-  if (!event) {
-    return null;
+  if (isLoading) {
+    return (
+      <main className="event-page">
+        <p role="status" aria-live="polite">
+          Henter event...
+        </p>
+      </main>
+    );
+  }
+
+  if (error && !event) {
+    return (
+      <main className="event-page">
+        <Link className="back-link" to="/">
+          ← Alle events
+        </Link>
+
+        <p role="alert">{error}</p>
+      </main>
+    );
   }
 
   return (
@@ -61,6 +96,7 @@ export default function EventPage() {
       <Link className="back-link" to="/">
         ← Alle events
       </Link>
+
       <EventDetails event={event} />
 
       <section className="signup-panel">
@@ -78,6 +114,7 @@ export default function EventPage() {
               value={name}
               onChange={(event) => setName(event.target.value)}
               required
+              disabled={isSubmitting}
             />
           </label>
 
@@ -89,18 +126,25 @@ export default function EventPage() {
               onChange={(event) => setEmail(event.target.value)}
               placeholder="dig@example.com"
               required
+              disabled={isSubmitting}
             />
           </label>
 
-          <button type="submit">Tilmeld mig</button>
+          <button type="submit" disabled={isSubmitting}>
+            {isSubmitting ? "Tilmelder..." : "Tilmeld mig"}
+          </button>
 
           {success && (
-            <p role="status" aria-live="polite">
+            <p className="form-message" role="status" aria-live="polite">
               {success}
             </p>
           )}
 
-          {error && <p role="alert">{error}</p>}
+          {error && (
+            <p className="form-message" role="alert">
+              {error}
+            </p>
+          )}
         </form>
       </section>
     </main>

@@ -6,15 +6,22 @@ export default function HomePage() {
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("Alle");
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function getEvents() {
+      setIsLoading(true);
+      setError(null);
+
       try {
         const data = await supabaseFetch("/events?order=date.asc");
         setEvents(data);
-      } catch {
-        setError("Vi kunne ikke hente events. Prøv igen senere."); //hvis events slet ikke loades
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+        setError("Vi kunne ikke hente events. Prøv igen senere.");
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -40,13 +47,16 @@ export default function HomePage() {
     <>
       <header className="hero">
         <p className="eyebrow">Kultur i Aarhus</p>
+
         <h1>Find plads til noget nyt.</h1>
+
         <p className="hero-copy">
           Koncerter, talks og workshops samlet ét sted. Find dit næste event, og
           tilmeld dig på få minutter.
         </p>
+
         <a className="hero-link" href="#events">
-          Se kommende events ↓
+          Se kommende events
         </a>
       </header>
 
@@ -56,6 +66,7 @@ export default function HomePage() {
             <p className="eyebrow dark">Det sker</p>
             <h2>Kommende events</h2>
           </div>
+
           <p>Kuraterede oplevelser i byen – fra små scener til store idéer.</p>
         </section>
 
@@ -83,16 +94,22 @@ export default function HomePage() {
           </label>
         </section>
 
-        {error && <p role="alert">{error}</p>}
-
-        {!error && filteredEvents.length === 0 && (
+        {isLoading && (
           <p role="status" aria-live="polite">
-            Vi fandt ikke nogen events, der matcher din søgning.{" "}
-            {/* hvis der skrives et forkert søgeord */}
+            Henter events...
           </p>
         )}
 
-        {!error && filteredEvents.length > 0 && (
+        {!isLoading && error && <p role="alert">{error}</p>}
+
+        {!isLoading && !error && filteredEvents.length === 0 && (
+          <div role="status" aria-live="polite">
+            <h3>Ingen events fundet</h3>
+            <p>Prøv et andet søgeord eller vælg en anden kategori.</p>
+          </div>
+        )}
+
+        {!isLoading && !error && filteredEvents.length > 0 && (
           <section className="event-grid">
             {filteredEvents.map((event) => (
               <EventCard key={event.id} event={event} />
