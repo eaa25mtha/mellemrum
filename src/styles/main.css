@@ -1,6 +1,24 @@
+/*==========================
+INDHOLDSFORTEGNELSE:
+
+- base/ globale css regler 
+- typografi
+- forms og focus states
+- navigation
+- home page 
+- event cards 
+- about page 
+- login page 
+- event detail page 
+- registrations page 
+- not found page 
+- footer
+- responsive - mobil
+============================*/
+
 /* =========================
    Base / Global
-========================= */
+=========================== */
 
 * {
   box-sizing: border-box;
@@ -160,6 +178,26 @@ select:focus-visible {
 .nav-links a.active {
   background: rgba(255, 255, 255, 0.1);
   color: white;
+}
+
+.nav-auth-button {
+  background: none;
+  border: 0;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  font-size: 0.92rem;
+  padding: 0.55rem 0.85rem;
+}
+
+.nav-auth-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-auth-button:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 3px;
 }
 
 /* =========================
@@ -608,6 +646,84 @@ select:focus-visible {
 }
 
 /* =========================
+   Login page
+========================= */
+
+.login-page {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+}
+
+.login-panel {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: 1fr 1fr;
+  max-width: 900px;
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 5rem);
+  width: 100%;
+}
+
+.login-intro h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 0.95;
+  margin: 0 0 1.5rem;
+}
+
+.login-intro > p:last-child {
+  color: #53605b;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 28rem;
+}
+
+.login-panel form {
+  align-content: center;
+  display: grid;
+  gap: 1rem;
+}
+
+.login-panel label {
+  display: grid;
+  font-size: 0.78rem;
+  font-weight: 800;
+  gap: 0.45rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.login-panel button {
+  background: var(--green);
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+  margin-top: 0.5rem;
+  min-height: 50px;
+  padding: 0.8rem 1.1rem;
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.login-panel button:hover:not(:disabled) {
+  background: var(--lime);
+  color: var(--green);
+}
+
+.login-panel button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+/* =========================
    Event detail page
 ========================= */
 
@@ -907,6 +1023,7 @@ select:focus-visible {
   .signup-panel,
   .about-intro,
   .about-city,
+  .login-panel,
   .about-audience-split,
   .about-flow-list {
     grid-template-columns: 1fr;

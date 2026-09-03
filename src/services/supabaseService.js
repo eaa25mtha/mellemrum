@@ -6,7 +6,7 @@ const headers = {
 };
 
 export async function supabaseFetch(endpoint, options = {}) {
-  const response = await fetch(`${SUPABASE_URL}${endpoint}`, {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1${endpoint}`, {
     headers,
     ...options,
   });
