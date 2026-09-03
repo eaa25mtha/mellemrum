@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { supabase } from "../services/supabaseClient.js";
 import { supabaseFetch } from "../services/supabaseService.js";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
 
@@ -56,7 +57,10 @@ export default function Navbar() {
 
     if (error) {
       console.error("Logout failed:", error);
+      return;
     }
+
+    navigate("/");
   }
 
   return (
