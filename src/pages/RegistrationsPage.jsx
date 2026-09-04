@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { supabase } from "../services/supabaseClient.js";
 import { supabaseFetch } from "../services/supabaseService.js";
 
 export default function RegistrationsPage() {
+  const navigate = useNavigate();
   const [registrations, setRegistrations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,8 +15,26 @@ export default function RegistrationsPage() {
       setError(null);
 
       try {
+        const {
+          data: { user },
+          error: authError,
+        } = await supabase.auth.getUser();
+
+        if (authError || !user) {
+          navigate("/");
+          return;
+        }
+
+        const profiles = await supabaseFetch(`/profiles?userId=eq.${user.id}`);
+        const profile = profiles[0];
+
+        if (!profile || profile.role !== "organizer") {
+          navigate("/");
+          return;
+        }
+
         const data = await supabaseFetch(
-          "/registrations?select=*,event:events(*)&order=createdAt.desc", //relationen i databasen
+          "/registrations?select=*,event:events(*)&order=createdAt.desc",
         );
 
         setRegistrations(data);
@@ -26,7 +47,7 @@ export default function RegistrationsPage() {
     }
 
     getRegistrations();
-  }, []);
+  }, [navigate]);
 
   return (
     <>
