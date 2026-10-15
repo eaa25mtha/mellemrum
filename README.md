@@ -16,6 +16,10 @@ Forbedringer:
    Implementeret Supabase authentication med login, logout og session-håndtering.
    Oprettet bruger- og arrangørroller med forskellige navigationsmuligheder.
 
+   test de to brugere ved at logge ind med:
+   - almen bruger: testbruger@supabase.com, test1test
+   - arrangør: testorganizer@supabase.com, test2test
+
 4. GDPR og adgangskontrol
    Brugere kan se egne tilmeldinger, mens arrangører får et samlet overblik.
    Tilføjet rollebaseret visning og adgangskontrol i React, dog uden RLS.
